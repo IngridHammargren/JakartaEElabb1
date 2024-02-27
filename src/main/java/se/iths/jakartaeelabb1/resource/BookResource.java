@@ -35,18 +35,18 @@ public class BookResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
     public BookDto one(@PathParam("id") long id){
-        var person = bookRepository.findById(id);
-        if( person == null)
+        var book = bookRepository.findById(id);
+        if( book == null)
             throw new NotFoundException("Invalid id " + id);
-        return BookDto.map(person);
+        return BookDto.map(book);
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     //@Produces(MediaType.APPLICATION_JSON)
-    public Response create(BookDto personDto){
+    public Response create(BookDto bookDto){
         //Save to database
-        var p = bookRepository.add(BookDto.map(personDto));
+        var p = bookRepository.add(BookDto.map(bookDto));
 
         return Response.created(
                         //Ask Jakarta application server for hostname and url path

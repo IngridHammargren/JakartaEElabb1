@@ -1,4 +1,4 @@
 package se.iths.jakartaeelabb1.dto;
+import java.util.List;
 
-public record Books() {
-}
+public record Books(List<BookDto> bookDtos) { }

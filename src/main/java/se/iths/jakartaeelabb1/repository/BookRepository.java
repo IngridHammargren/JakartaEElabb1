@@ -28,4 +28,9 @@ public class BookRepository {
     public Book findById(long id) {
         return entityManager.find(Book.class, id);
     }
+    @Transactional
+    public void deleteById(long id) {
+        Book book = entityManager.find(Book.class, id);
+        if (book != null) entityManager.remove(book);
+    }
 }

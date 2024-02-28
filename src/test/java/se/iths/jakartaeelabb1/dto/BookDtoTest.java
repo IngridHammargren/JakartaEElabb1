@@ -20,5 +20,18 @@ class BookDtoTest {
 
 
     }
+
+
+    @Test
+    void testInvalidBookDto() {
+        BookDto book = new BookDto("Mythos", "Stephen Fry", 124L, 350);
+
+        var violations = validator.validate(book);
+
+        assertEquals(1, violations.size());
+        assertEquals("Year has to be set to 860 or higher", violations.iterator().next().getMessage());
+
+
+    }
   
 }

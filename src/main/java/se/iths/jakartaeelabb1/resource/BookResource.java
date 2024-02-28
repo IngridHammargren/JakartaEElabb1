@@ -1,6 +1,7 @@
 package se.iths.jakartaeelabb1.resource;
 
 import jakarta.inject.Inject;
+import jakarta.json.bind.JsonbException;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -39,10 +40,17 @@ public class BookResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    //@Produces(MediaType.APPLICATION_JSON)
-    public Response create(@Valid BookDto bookDto){
-        var b = bookService.add(bookDto);
-        return Response.created(URI.create("http://localhost:8080/api/books/" + b.getId())).build();
+    public Response create(@Valid BookDto bookDto) {
+        try {
+            // Your existing code for adding a book
+            var b = bookService.add(bookDto);
+            return Response.created(URI.create("http://localhost:8080/api/books/" + b.getId())).build();
+        } catch (JsonbException e) {
+            // Handle JSON deserialization error here
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("Invalid JSON data. Please check your request body.")
+                    .build();
+        }
     }
 
     @DELETE

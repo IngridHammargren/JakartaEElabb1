@@ -45,6 +45,8 @@ public class BookService {
         return b;
     }
     public void delete(long id) {
-        bookRepository.deleteById(id);
+        var book = bookRepository.findById(id);
+        if( book == null) throw new NotFoundException("Invalid id " + id);
+        else bookRepository.deleteById(id);
     }
 }

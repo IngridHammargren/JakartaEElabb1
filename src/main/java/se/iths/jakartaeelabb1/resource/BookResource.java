@@ -45,5 +45,11 @@ public class BookResource {
                         URI.create("http://localhost:8080/api/books/" + b.getId()))
                 .build();
     }
+    @DELETE
+    @Path("{id}")
+    public Response delete(@PathParam("id") long id) {
+        bookService.delete(id);
+        return Response.noContent().build();
+    }
 
 }

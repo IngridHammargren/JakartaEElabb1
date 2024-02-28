@@ -1,6 +1,5 @@
 package se.iths.jakartaeelabb1.service;
 
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.NotFoundException;
@@ -47,5 +46,13 @@ public class BookService {
         var book = bookRepository.findById(id);
         if( book == null) throw new NotFoundException("Invalid id " + id);
         else bookRepository.deleteById(id);
+    }
+
+    public Book update (long id, BookDto bookDto) {
+        var b = bookRepository.update(id, bookDto);
+        return b;
+
+
+
     }
 }

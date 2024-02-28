@@ -9,6 +9,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import se.iths.jakartaeelabb1.dto.BookDto;
 import se.iths.jakartaeelabb1.dto.Books;
+import se.iths.jakartaeelabb1.entity.Book;
 import se.iths.jakartaeelabb1.service.BookService;
 
 import java.net.URI;
@@ -52,5 +53,13 @@ public class BookResource {
     public Response delete(@PathParam("id") long id) {
         bookService.delete(id);
         return Response.ok().entity("Book with ID " + id + " deleted successfully.").build();
+    }
+
+    @PUT
+    @Path("{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Book update(@PathParam("id") long id, BookDto bookDto)  {
+        return bookService.update(id, bookDto);
     }
 }

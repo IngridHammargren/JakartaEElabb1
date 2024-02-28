@@ -11,7 +11,7 @@ public record BookDto(
         @NotBlank(message = "Author cannot be blank")
         String author,
         Long id,
-        @Min(value = 860 )
+        @Min(value = 860, message = "Year has to be set to 860 or higher" )
         @NotNull(message = "Year cannot be null")
         int year) {
 

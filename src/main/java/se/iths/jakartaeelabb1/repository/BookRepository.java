@@ -18,6 +18,13 @@ public class BookRepository {
                 .createQuery("select b from Book b", Book.class)
                 .getResultList();
     }
+    public List<Book> findByTitleAndAuthor(String title, String author) {
+        return entityManager.createQuery(
+                        "select b from Book b where b.title = :title and b.author = :author", Book.class)
+                .setParameter("title", title)
+                .setParameter("author", author)
+                .getResultList();
+    }
 
     @Transactional
     public Book add(Book book) {

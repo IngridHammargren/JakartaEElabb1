@@ -10,8 +10,9 @@ public record BookDto(String title, String author, Long id, int year) {
 
     public static Book map(BookDto bookDTO) {
         var book = new Book();
-        book.setTitle(bookDTO.title());
-        book.setAuthor(bookDTO.author());
+        book.setTitle(bookDTO.title);
+        book.setAuthor(bookDTO.author);
+        book.setYear(bookDTO.year);
         return book;
     }
 }

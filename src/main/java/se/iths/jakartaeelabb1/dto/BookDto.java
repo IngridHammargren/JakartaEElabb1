@@ -13,7 +13,7 @@ public record BookDto(
         Long id,
         @Min(value = 860, message = "Year has to be set to 860 or higher" )
         @NotNull(message = "Year cannot be null")
-        int year) {
+        Integer year) {
 
     public static BookDto map(Book bookEntity) {
         return new BookDto(bookEntity.getTitle(), bookEntity.getAuthor(), bookEntity.getId(), bookEntity.getYear());

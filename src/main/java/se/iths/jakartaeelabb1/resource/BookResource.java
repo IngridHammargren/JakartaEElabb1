@@ -42,15 +42,13 @@ public class BookResource {
     //@Produces(MediaType.APPLICATION_JSON)
     public Response create(@Valid BookDto bookDto){
         var b = bookService.add(bookDto);
-        return Response.created(
-                        URI.create("http://localhost:8080/api/books/" + b.getId()))
-                .build();
+        return Response.created(URI.create("http://localhost:8080/api/books/" + b.getId())).build();
     }
     @DELETE
     @Path("{id}")
     public Response delete(@PathParam("id") long id) {
         bookService.delete(id);
-        return Response.noContent().build();
+        return Response.ok().entity("Book with ID " + id + " deleted successfully.").build();
     }
 
 }

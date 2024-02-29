@@ -1,4 +1,4 @@
-package se.iths.jakartaeelabb1.dto;
+package se.iths.jakartaeelabb1;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

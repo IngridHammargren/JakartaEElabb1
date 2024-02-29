@@ -4,7 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
-import se.iths.jakartaeelabb1.dto.BookDto;
+import se.iths.jakartaeelabb1.BookDto;
 import se.iths.jakartaeelabb1.entity.Book;
 
 import java.util.List;

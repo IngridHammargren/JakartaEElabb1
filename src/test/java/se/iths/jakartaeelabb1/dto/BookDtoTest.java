@@ -3,6 +3,7 @@ package se.iths.jakartaeelabb1.dto;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.Test;
+import se.iths.jakartaeelabb1.BookDto;
 
 import static org.junit.jupiter.api.Assertions.*;
 class BookDtoTest {

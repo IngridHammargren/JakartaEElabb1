@@ -1,4 +1,4 @@
-package se.iths.jakartaeelabb1.bookResource;
+package se.iths.jakartaeelabb1.resourceTest;
 
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,7 +9,7 @@ import org.testcontainers.containers.ComposeContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import se.iths.jakartaeelabb1.Books;
+import se.iths.jakartaeelabb1.dto.Books;
 
 import java.io.File;
 import java.util.List;

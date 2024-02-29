@@ -50,7 +50,7 @@ public void setup(){
 }
 
     @Test
-    @DisplayName("Test delete book returns 200 ok")
+    @DisplayName("Test delete book returns 200")
     void testDeleteBook() throws Exception {
         long bookId = 123L;
         MockHttpRequest request = MockHttpRequest.delete("/books/" + bookId);

@@ -1,5 +1,6 @@
 package se.iths.jakartaeelabb1.service;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.NotFoundException;
@@ -11,7 +12,7 @@ import se.iths.jakartaeelabb1.repository.BookRepository;
 import java.util.List;
 import java.util.logging.Logger;
 
-@Dependent
+@ApplicationScoped
 public class BookService {
     BookRepository bookRepository;
 

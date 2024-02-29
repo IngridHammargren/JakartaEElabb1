@@ -1,6 +1,8 @@
 package se.iths.jakartaeelabb1.dto;
 
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import io.restassured.parsing.Parser;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -9,6 +11,7 @@ import org.testcontainers.containers.ComposeContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import se.iths.jakartaeelabb1.entity.Book;
 
 import java.io.File;
 import java.util.List;
@@ -21,7 +24,7 @@ class BookIT {
     @Container
     public static ComposeContainer environment =
             new ComposeContainer(new File("src/test/resources/compose-test.yml"))
-                    .withExposedService("wildfly", 8080, Wait.forHttp("/JakartaEElabb1-1.0-SNAPSHOT/api/books")
+                    .withExposedService("wildfly", 8080, Wait.forHttp("/api/books")
                            .forStatusCode(200))
                     .withLocalCompose(true);
 
@@ -36,7 +39,7 @@ class BookIT {
 
     @BeforeEach
     void before() {
-        RestAssured.baseURI = "http://" + host + "/JakartaEElabb1-1.0-SNAPSHOT/api";
+        RestAssured.baseURI = "http://" + host + "/api";
         RestAssured.port = port;
     }
 

@@ -24,7 +24,7 @@ class BookIT {
     @Container
     public static ComposeContainer environment =
             new ComposeContainer(new File("src/test/resources/compose-test.yml"))
-                    .withExposedService("wildfly", 8080, Wait.forHttp("/JakartaEElabb1-1.0-SNAPSHOT/api/books")
+                    .withExposedService("wildfly", 8080, Wait.forHttp("/api/books")
                            .forStatusCode(200))
                     .withLocalCompose(true);
 
@@ -39,7 +39,7 @@ class BookIT {
 
     @BeforeEach
     void before() {
-        RestAssured.baseURI = "http://" + host + "/JakartaEElabb1-1.0-SNAPSHOT/api";
+        RestAssured.baseURI = "http://" + host + "/api";
         RestAssured.port = port;
     }
 

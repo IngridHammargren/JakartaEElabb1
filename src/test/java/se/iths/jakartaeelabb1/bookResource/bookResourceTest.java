@@ -1,7 +1,6 @@
 package se.iths.jakartaeelabb1.bookResource;
 
 import jakarta.ws.rs.core.MediaType;
-import net.bytebuddy.agent.builder.AgentBuilder;
 import org.jboss.resteasy.mock.MockDispatcherFactory;
 import org.jboss.resteasy.mock.MockHttpRequest;
 import org.jboss.resteasy.mock.MockHttpResponse;
@@ -11,23 +10,24 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 import se.iths.jakartaeelabb1.dto.BookDto;
+import se.iths.jakartaeelabb1.dto.Books;
 import se.iths.jakartaeelabb1.entity.Book;
 import se.iths.jakartaeelabb1.resource.BookResource;
 import se.iths.jakartaeelabb1.service.BookService;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class bookResource {
+class bookResourceTest {
 
     @Mock
     BookService bookService;
@@ -75,6 +75,16 @@ public void setup(){
         dispatcher.invoke(request,response);
         bookResource.delete(id);
         assertEquals(200,response.getStatus());
+    }
+
+    @Test
+    public void booksReturnsWithStatus200() throws Exception {
+        when(bookService.all()).thenReturn(new Books(List.of()));
+        MockHttpRequest request = MockHttpRequest.get("/books");
+        MockHttpResponse response = new MockHttpResponse();
+        dispatcher.invoke(request, response);
+        assertEquals(200, response.getStatus());
+        assertEquals("{\"bookDtos\":[]}", response.getContentAsString());
     }
 
 }

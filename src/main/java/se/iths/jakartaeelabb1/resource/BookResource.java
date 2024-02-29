@@ -43,7 +43,7 @@ public class BookResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     //@Produces(MediaType.APPLICATION_JSON)
-    public Response create(@Valid @NotNull BookDto bookDto){
+    public Response create(@Valid BookDto bookDto){
         var b = bookService.add(bookDto);
         return Response.created(URI.create("http://localhost:8080/api/books/" + b.getId())).build();
     }

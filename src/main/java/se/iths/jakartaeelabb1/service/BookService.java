@@ -3,8 +3,8 @@ package se.iths.jakartaeelabb1.service;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.NotFoundException;
-import se.iths.jakartaeelabb1.BookDto;
-import se.iths.jakartaeelabb1.Books;
+import se.iths.jakartaeelabb1.dto.BookDto;
+import se.iths.jakartaeelabb1.dto.Books;
 import se.iths.jakartaeelabb1.entity.Book;
 import se.iths.jakartaeelabb1.repository.BookRepository;
 

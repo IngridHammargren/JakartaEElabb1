@@ -32,6 +32,8 @@ class bookResource {
     @Mock
     BookService bookService;
 
+    BookResource bookResource;
+
     ObjectMapper objectMapper;
 
     Dispatcher dispatcher;
@@ -43,6 +45,7 @@ public void setup(){
     dispatcher = MockDispatcherFactory.createDispatcher();
     var resource = new BookResource(bookService);
     dispatcher.getRegistry().addSingletonResource(resource);
+    bookResource = new BookResource(bookService);
 }
 
 
@@ -61,6 +64,17 @@ public void setup(){
 
         // Assert the response status code and content
         assertEquals(201, response.getStatus());
+    }
+
+    @Test
+    @DisplayName("test delete method should return 200 ok")
+    void testDeleteBook() throws Exception {
+        Long id = 1L;
+        MockHttpRequest request = MockHttpRequest.delete("/books/" + id);
+        MockHttpResponse response = new MockHttpResponse();
+        dispatcher.invoke(request,response);
+        bookResource.delete(id);
+        assertEquals(200,response.getStatus());
     }
 
 }

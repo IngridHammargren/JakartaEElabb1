@@ -1,4 +1,4 @@
-package se.iths.jakartaeelabb1.bookResourceTest;
+package se.iths.jakartaeelabb1.bookServiceTest;
 
 import com.github.dockerjava.api.exception.NotFoundException;
 import jakarta.ws.rs.core.MediaType;

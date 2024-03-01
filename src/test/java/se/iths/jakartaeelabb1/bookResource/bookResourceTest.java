@@ -1,5 +1,6 @@
 package se.iths.jakartaeelabb1.bookResource;
 
+import com.github.dockerjava.api.exception.NotFoundException;
 import jakarta.ws.rs.core.MediaType;
 import org.jboss.resteasy.mock.MockDispatcherFactory;
 import org.jboss.resteasy.mock.MockHttpRequest;
@@ -17,13 +18,13 @@ import se.iths.jakartaeelabb1.dto.Books;
 import se.iths.jakartaeelabb1.entity.Book;
 import se.iths.jakartaeelabb1.resource.BookResource;
 import se.iths.jakartaeelabb1.service.BookService;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -78,7 +79,7 @@ public void setup(){
     }
 
     @Test
-    public void booksReturnsWithStatus200() throws Exception {
+    void booksReturnsWithStatus200() throws Exception {
         when(bookService.all()).thenReturn(new Books(List.of()));
         MockHttpRequest request = MockHttpRequest.get("/books");
         MockHttpResponse response = new MockHttpResponse();
@@ -87,4 +88,31 @@ public void setup(){
         assertEquals("{\"bookDtos\":[]}", response.getContentAsString());
     }
 
+    @Test
+    @DisplayName("Update book with PUT returns 200 OK")
+    void updateBookReturnsStatus200() throws URISyntaxException {
+        Long id = 1L;
+
+        when(bookService.update(eq(id), any(BookDto.class))).thenReturn(new Book());
+
+        MockHttpRequest request = MockHttpRequest.put("/books/" + id);
+        request.contentType(MediaType.APPLICATION_JSON);
+        request.content("{\"title\":\"Emil i Lönneberga\", \"author\":\"Astrid Lindgren\", \"year\":1963}".getBytes());
+        MockHttpResponse response = new MockHttpResponse();
+        dispatcher.invoke(request, response);
+
+        assertEquals(200, response.getStatus());
+    }
+
+    @Test
+    @DisplayName("Attempt to update non-existing book throws NotFoundException")
+    void updateNonExistingBook() {
+        Long nonExistingBookId = 10L;
+
+        BookDto bookDto = new BookDto("Emil i Lönneberga", "Astrid Lindgren", 10L, 2022);
+
+        when(bookService.update(nonExistingBookId, bookDto)).thenThrow(NotFoundException.class);
+
+        assertThrows(NotFoundException.class, () -> bookService.update(nonExistingBookId, bookDto));
+    }
 }

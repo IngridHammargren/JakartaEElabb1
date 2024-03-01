@@ -49,9 +49,8 @@ public class BookService {
 
     public Book update (long id, BookDto bookDto) {
         var b = bookRepository.update(id, bookDto);
+        if (b == null)
+            throw new NotFoundException("Invalid id " + id);
         return b;
-
-
-
     }
 }

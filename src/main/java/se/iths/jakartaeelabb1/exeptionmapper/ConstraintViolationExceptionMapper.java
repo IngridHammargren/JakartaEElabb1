@@ -45,7 +45,6 @@ public class ConstraintViolationExceptionMapper implements ExceptionMapper<Const
         }
 
         JsonObject errorJsonEntity = jsonObject.add("errors", jsonArray.build()).build();
-       // logger.error("ERROR: " + errorJsonEntity.getJsonArray("errors"));
         return Response.status(Response.Status.BAD_REQUEST).entity(errorJsonEntity).build();
         }
     }

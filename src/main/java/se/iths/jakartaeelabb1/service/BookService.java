@@ -31,26 +31,27 @@ public class BookService {
     public BookDto one(long id){
         var book = bookRepository.findById(id);
         if( book == null)
-            throw new NotFoundException("Invalid id " + id);
+            throw new NotFoundException(id + " not found");
         return BookDto.map(book);
     }
 
     public Book add(BookDto bookDto) {
         List<Book> existingBooks = bookRepository.findByTitleAndAuthor(bookDto.title(),bookDto.author());
-        if (!existingBooks.isEmpty()) throw new IllegalArgumentException("Book with the same title and author already exists");
-        var b = bookRepository.add(BookDto.map(bookDto));
-        return b;
+        if (!existingBooks.isEmpty())
+            throw new IllegalArgumentException(bookDto.title() + " already exists");
+        return bookRepository.add(BookDto.map(bookDto));
     }
     public void delete(long id) {
         var book = bookRepository.findById(id);
-        if( book == null) throw new NotFoundException("Invalid id " + id);
+        if( book == null)
+            throw new NotFoundException(id + " not found");
         else bookRepository.deleteById(id);
     }
 
     public Book update (long id, BookDto bookDto) {
         var b = bookRepository.update(id, bookDto);
         if (b == null)
-            throw new NotFoundException("Invalid id " + id);
+            throw new NotFoundException(bookDto.title() + " does not exist");
         return b;
     }
 }

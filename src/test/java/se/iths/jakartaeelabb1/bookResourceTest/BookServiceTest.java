@@ -1,4 +1,4 @@
-package se.iths.jakartaeelabb1.bookResource;
+package se.iths.jakartaeelabb1.bookResourceTest;
 
 import com.github.dockerjava.api.exception.NotFoundException;
 import jakarta.ws.rs.core.MediaType;
@@ -18,7 +18,6 @@ import se.iths.jakartaeelabb1.dto.Books;
 import se.iths.jakartaeelabb1.entity.Book;
 import se.iths.jakartaeelabb1.resource.BookResource;
 import se.iths.jakartaeelabb1.service.BookService;
-import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,7 +27,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class bookResourceTest {
+class BookServiceTest {
 
     @Mock
     BookService bookService;
@@ -52,7 +51,7 @@ public void setup(){
 
     @Test
     @DisplayName("create new book with POST returns 201")
-    void createReturnsStatus201() throws URISyntaxException, UnsupportedEncodingException {
+    void createReturnsStatus201() throws URISyntaxException {
         // Mock the behavior of bookService.add
         when(bookService.add(any(BookDto.class))).thenReturn(new Book());
 
@@ -70,7 +69,7 @@ public void setup(){
     @Test
     @DisplayName("test delete method should return 200 ok")
     void testDeleteBook() throws Exception {
-        Long id = 1L;
+        long id = 1L;
         MockHttpRequest request = MockHttpRequest.delete("/books/" + id);
         MockHttpResponse response = new MockHttpResponse();
         dispatcher.invoke(request,response);
@@ -107,7 +106,7 @@ public void setup(){
     @Test
     @DisplayName("Attempt to update non-existing book throws NotFoundException")
     void updateNonExistingBook() {
-        Long nonExistingBookId = 10L;
+        long nonExistingBookId = 10L;
 
         BookDto bookDto = new BookDto("Emil i Lönneberga", "Astrid Lindgren", 10L, 2022);
 
